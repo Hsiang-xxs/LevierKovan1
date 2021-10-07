@@ -2,7 +2,7 @@ specVersion: 0.0.2
 description: Subgraph for Levier Capital on Kovan .
 repository: https://github.com/nascentxyz/cream-subgraph
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: ComptrollerProxy
@@ -15,19 +15,19 @@ dataSources:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./src/mappings/comptroller.ts
+      file: ComptrollerProxy/ComptrollerProxy.wasm
       entities:
         - Comptroller
         - Market
       abis:
         - name: Comptroller
-          file: ./abis/ComptrollerProxy.json
+          file: ComptrollerProxy/abis/ComptrollerProxy.json
         - name: CToken
-          file: ./abis/ctoken.json
+          file: ComptrollerProxy/abis/ctoken.json
         - name: PriceOracle
-          file: ./abis/priceOracle.json
+          file: ComptrollerProxy/abis/priceOracle.json
         - name: ERC20
-          file: ./abis/erc20.json
+          file: ComptrollerProxy/abis/erc20.json
       eventHandlers:
         - event: MarketListed(address)
           handler: handleMarketListed
@@ -53,18 +53,18 @@ templates:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./src/mappings/ctoken.ts
+      file: templates/CToken/CToken.wasm
       entities:
         - User
         - Market
         - CTokenInfo
       abis:
         - name: CToken
-          file: ./abis/ctoken.json
+          file: CToken/abis/ctoken.json
         - name: PriceOracle
-          file: ./abis/priceOracle.json
+          file: CToken/abis/priceOracle.json
         - name: ERC20
-          file: ./abis/erc20.json
+          file: CToken/abis/erc20.json
       eventHandlers:
         - event: Mint(address,uint256,uint256)
           handler: handleMint
